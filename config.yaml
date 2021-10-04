@@ -1,4 +1,5 @@
-baseURL: https://mywebsitemengyu.netlify.app/
+#baseURL: https://mywebsitemengyu.netlify.app/
+baseURL = "https://mywebsitemengyu.netlify.app/"
 languageCode: en-us
 title: Portfolio Website for MENGYU LIU
 theme: forty
