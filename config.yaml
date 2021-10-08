@@ -1,4 +1,4 @@
-baseURL = "https://mywebsitemengyu.netlify.app/"
+baseURL: https://mywebsitemengyu.netlify.app/
 languageCode: en-us
 title: Portfolio Website for MENGYU LIU
 theme: forty
@@ -82,13 +82,13 @@ params:
     enable: yes
     showcase:
       - image: lbs.jpg
-        subtitle: I am now in LONDON BUSINESS SCHOOL.
+        subtitle: I am now studying in LONDON BUSINESS SCHOOL.
         title: About me
         url: blogs/aliquam
       - image: pic02.jpg
         subtitle: Feugiat Amet Tempus
         title: risk-return of DJIA
-        url: blogs/rish_return
+        url: blogs/risk_return
       - image: pic03.jpg
         subtitle: Lorem Etiam Nullam
         title: Magna
