@@ -1,0 +1,52 @@
+---
+categories:  
+- ""
+- ""
+date: "2021-10-15"
+description: life at lbs
+draft: false
+image: xueshengka.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+keywords: ""
+slug: lifelbs # slug is the shorthand URL address... no spaces plz
+title: Life at LBS
+---
+  
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+# Briefing
+My MFA program starts from August 2021, and we have to complete our study of three semesters: August semester from late August to December, Spring semester from January to March and Summer semester from April to June. Also, we are encouraged to build global business exposure by taking part into great events like London Business Challenge Week and Global Immersion Field Trips. These two events will take place next year and I am very looking forward to it.
+
+This year there are about 200 students in MFA and we are divided into two streams and several studying groups. I’ve been surprised at how much I've enjoyed diversified studying atmosphere. We work in groups with quantitative backgrounds and we share our opinions for every project or topic of class. It was not like something I’d worked on before, but it was a great experience. 
+
+![Life starts at LBS 2021.9](https://raw.githubusercontent.com/mengyuliu0531/photos/main/xueshangka.JPG)
+
+# Mandatory courses
+We are required to complete 12 mandatory courses for the whole program, and this semester we have 3 of them.
+
+## CA01 Investment Fundamentals
+This is a rigorous foundations course in investment analysis. The course covers the basics of fixed income, equity and derivative securities as well as modern portfolio theory (how to invest across different securities/assets or asset classes). The focus is on understanding how to value securities, how to measure/manage the risk of these securities, the relationship between risk and return and the practical application of these concepts.
+
+## CA05 Analysis of Financial Statements
+A company’s financial reports convey a wealth of useful information about its business. The reported numbers reflect the business activity of the firm during the reporting period and provide an important source of information regarding future developments.  Indeed, corporate financial statements serve as a primary means by which managers communicate their information to various decision-makers.  These include investors, creditors, customers and analysts. These parties use the reports to judge company performance, to assess creditworthiness, to predict future financial performance, and to assess possible acquisitions and takeovers.
+
+## CA09 Data Analytics for Finance
+This course is an introduction to using R/Rstudio to learn from data. It aims to teach useful skills: data importing, data filtering and manipulation, visualization, inferential statistics, and data modelling. Honestly speaking, this course is the most difficult among all, on my side, yet it also generates a sense of satisfaction  everything my code runs and I successfully produce a project.
+
+![A classroom at Sammy Ofer Centre 2021.8](https://raw.githubusercontent.com/mengyuliu0531/photos/main/jiaoshi.JPG)
+
+# Electives
+Electives start from the spring semester. Now we have gone through the briefing and I do find some courses that I am really interested in: Real estate finance, Advanced corporate finance and so forth. Hope I will enjoy them next year.

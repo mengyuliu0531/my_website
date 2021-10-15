@@ -1,0 +1,51 @@
+---
+categories:  
+- ""
+- ""
+date: "2021-10-15"
+description: Expriences of how I learn and use Japanese
+draft: false
+image: japanese2.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+keywords: ""
+slug: japanese # slug is the shorthand URL address... no spaces plz
+title: Japanese as my second language
+---
+  
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+As my undergraduate major, I have started to learn Japanese with no previous foundation four years ago and managed to use it fluently now, no matter for daily communicating or working tools. In the past four year in Tsinghua, I have also attended a great number of events that have to talk or discuss in Japanese. All of these chances helped me improve my Japanese speaking, listening, reading and writing skills to their full extents.
+
+![Me at Universal Studio Osaka 2020.1](https://raw.githubusercontent.com/mengyuliu0531/photos/main/japanese3.jpg)
+
+# Aeon Speech Contest
+Every spring, Japan's AEON Group holds a Japanese speech contest in Tsinghua University. I took part into the events in 2019, when I was a sophomore. The theme of that year's speech was "To build better Sino-Japanese relationship--things I have done and I look forward to do". 
+I got the first prize that time, and as award, me and other 4 students from Tsinghua were invited to travel in Tokyo in the summer vacation. It was not my first time in Japan, yet It was a great time to be guided by a Japanese native perspective instead of being just a foreign tourist.
+
+![Me at the speech contest 2019.5](https://raw.githubusercontent.com/mengyuliu0531/photos/main/aeon.JPG)
+
+During that trip, we were invited to get a taste of Japanese traditional cloth "Kimono" and Japanese Sushi.
+
+![Me in Kimono 2020.7](https://raw.githubusercontent.com/mengyuliu0531/photos/main/ribenhefu.JPG)
+
+# Exchange program at Hitotsubashi University in Japan
+From the Autumn of 2019 and early 2020, I went to Hitotsubashi University in Tokyo, Japan, for an exchange program. Hitotsubashi University is very like LBS, which is considered the best in economics and commerce related subjects in Japan. It was a great and unforgettable 5-month experience for me.
+
+![Me and foreign friends in shared reception room in Hitotsubashi University 2020.9](https://raw.githubusercontent.com/mengyuliu0531/photos/main/ribensushe.JPG)
+
+![Me and my bestie at Fuji Mountain 2020.11](https://raw.githubusercontent.com/mengyuliu0531/photos/main/fushishan.JPG)
+
+It is so great to learn a new language, besides mandarin and English. Thanks to Japanese, I got to make more friends and experience a great number of fabulous things. Even though I am now studying in UK, my story with Japanese never ends......
