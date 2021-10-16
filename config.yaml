@@ -97,10 +97,10 @@ params:
         subtitle: My new life at LBS
         title: Life at LBS
         url: blogs/lifelbs #done
-      - image: pic05.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Consequat
-        url: blogs/ipsum
+      - image: huanghelou.jpg
+        subtitle: Take a look at my hometown
+        title: MY hometown Wuhan
+        url: blogs/wuhan #done
       - image: pic06.jpg
         subtitle: Feugiat Amet Tempus
         title: Etiam
