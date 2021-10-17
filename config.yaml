@@ -8,9 +8,8 @@ params:
   banner:
     buttonText: Get Started
     subtitle: |-
-      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
-      AND RELEASED UNDER THE CREATIVE COMMONS.
-    title: Hi, my name is MENGYU LIU. Welcome to my personal webpage.
+      HERE YOU COULD DISCOVER MORE ABOUT ME.
+    title: Hi, I am MENGYU LIU. Welcome to my personal webpage.
   blog: {}
   contact:
     address:
@@ -97,17 +96,17 @@ params:
         subtitle: My new life at LBS
         title: Life at LBS
         url: blogs/lifelbs #done
-      - image: huanghelou.jpg
+      - image: huanghelou1.jpg
         subtitle: Take a look at my hometown
         title: MY hometown Wuhan
         url: blogs/wuhan #done
-      - image: pic06.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Etiam
-        url: blogs/ipsum
-  two:
-    buttonText: Get Started
-    enable: yes
-    subtitle: "tobecontinued"
-    title: suibianxiedian
-    url: blogs
+      - image: shouzhang1.jpg
+        subtitle: See how i record everyday life
+        title: Making journal as my hobby
+        url: blogs/hobby #done
+  #two:
+   # buttonText: Get Started
+   # enable: yes
+   # subtitle: "See all blogs"
+  #  title: Discover all blogs in a list.
+  #  url: blogs

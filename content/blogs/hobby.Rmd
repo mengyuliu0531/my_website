@@ -1,0 +1,64 @@
+---
+categories:  
+- ""
+- ""
+date: "2021-10-17"
+description: hobby
+draft: false
+image: "" # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+keywords: ""
+slug: hobby # slug is the shorthand URL address... no spaces plz
+title: Making journal as my hobby
+---
+  
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+# What do I do in my spare time?
+## Making everyday journals
+I love writing down every details of things I have done for each day. I regard this as making every minutes, every hours of my life meaningful, as when I come back, I am able to tell exactly what I did on a certain afternoon, what did I eat for that dinner, was I happy or disapointed and why, etc. I really enjoy the time I recall things I have experienced.
+
+I have mainly use three type of journals: daily, weekly and timeline. Usually I start a new book when a year starts, and I would choose a certain type for each year based on what will my life look like for the following year.
+
+Here are some examples:
+
+### Timeline
+Basically, timeline journal is like a schedule book where you write things you need to do for each hour of the day. However, my timeline journal is more than just a to do list. 
+
+![timeline journal 2021.10](https://raw.githubusercontent.com/mengyuliu0531/photos/main/timeline.jpg)
+
+First, timeline shows what I have done for today, such as taking courses, doing homework, visiting museum and so forth. Below the timeline, I write down the urgent things like due for today, with a checkbox. At the bottom, I record three meals of the day.
+
+I use timeline journal when the life is rich, such as my life at LBS. I have lots of courses, assignments and events here in London, therefore, I believe timeline journal is the best choice.
+
+### Daily
+Daily looks like timeline, but it is more colourful and illustrative with more vivid images.
+
+![daily journal 2019.5](https://raw.githubusercontent.com/mengyuliu0531/photos/main/daily.jpg)
+
+I was not that busy in 2019, when I was a sophomore. I would use different colours to distinguish different courses: mandatory, electives, major and minor. I bought some pretty loveable stickers that time, so I put them into my daily journal, to show clearly what I have eaten for meals. Hence the journal looks fantastic.
+
+### Weekly
+Weekly literally means you do not care too much about what you do every day, instead, you record your life more on a weekly basis.
+
+![weekly journal 2020.10](https://raw.githubusercontent.com/mengyuliu0531/photos/main/weekly.jpg)
+
+Weekly journals provides more space for you to design your journal freely. I chose to write down the meaningful things of the day, with stickers representing foods and my everyday feelings: happy, sad or upset. This kind of journal definitely requires more time to design and compose, so you probably won't choose weekly when you are extremely overwhelmed your work. I made this journal when I took exchange program in Japan, where the life pace was pretty low, thus I owned lots of time to do this.
+
+## Dancing
+I like dancing, especially with k-pop music. It is a fantastic way to exercise, but completely with more fun, since you can really perform something at the end. I usually learn to dance in a dance studio in Beijing, about twice a week. Here in the UK, my roommates and I go to the studio in school's gym once a week, to learn dancing with tutoring videos.
+
+![dance exercising 2020.11](https://raw.githubusercontent.com/mengyuliu0531/photos/main/dance1.jpg)
