@@ -104,9 +104,9 @@ params:
         subtitle: See how i record everyday life
         title: Making journal as my hobby
         url: blogs/hobby #done
-  #two:
-   # buttonText: Get Started
-   # enable: yes
-   # subtitle: "See all blogs"
-  #  title: Discover all blogs in a list.
-  #  url: blogs
+  two:
+    buttonText: Get Started
+    enable: yes
+    subtitle: "See all blogs"
+    title: Discover all blogs in a list.
+    url: blogs
