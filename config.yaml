@@ -108,5 +108,5 @@ params:
     buttonText: Get Started
     enable: yes
     subtitle: "See all blogs"
-    title: Discover all blogs in a list.
+    title: Discover all my blogs.
     url: blogs
