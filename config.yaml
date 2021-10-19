@@ -104,6 +104,10 @@ params:
         subtitle: See how i record everyday life
         title: Making journal as my hobby
         url: blogs/hobby #done
+      - image: german.png
+        subtitle: What I have learnt about R
+        title: R Markdown Project
+        url: blogs/hw1
   two:
     buttonText: Get Started
     enable: yes

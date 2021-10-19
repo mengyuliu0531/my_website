@@ -1,0 +1,982 @@
+---
+categories:  
+- ""
+- ""
+date: "2021-10-19"
+description: What I have learnt about R
+draft: false
+image: img1.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+keywords: ""
+slug: hw1 # slug is the shorthand URL address... no spaces plz
+title: R Markdown Project
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="briefing" class="section level1">
+<h1>Briefing</h1>
+<p>For the weekly assignment of CA09, I was required to run some codes to complete basic data research. This is an example that I have done for this course.
+In this page, you will see how I deal with data and topics about people drinking, movies, returns of stocks, inflation, vaccination rate and Germany election.</p>
+<div id="where-do-people-drink-the-most-beer-wine-and-spirits" class="section level2">
+<h2>Where Do People Drink The Most Beer, Wine And Spirits?</h2>
+<p>Back in 2014, <a href="https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/">fivethiryeight.com</a> published an article on alchohol consumption in different countries. The data <code>drinks</code> is available as part of the <code>fivethirtyeight</code> package. Make sure you have installed the <code>fivethirtyeight</code> package before proceeding.</p>
+<pre class="r"><code>library(fivethirtyeight)
+data(drinks)
+
+
+# or download directly
+alcohol_direct &lt;- read_csv(&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv&quot;)</code></pre>
+<p>What are the variable types? Any missing values we should worry about?</p>
+<pre class="r"><code>#str(alcohol_direct)
+skimr::skim(alcohol_direct)</code></pre>
+<table>
+<caption>(#tab:glimpse_skim_data)Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">alcohol_direct</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">193</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">4</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">28</td>
+<td align="right">0</td>
+<td align="right">193</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">beer_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">106.16</td>
+<td align="right">101.14</td>
+<td align="right">0</td>
+<td align="right">20.0</td>
+<td align="right">76.0</td>
+<td align="right">188.0</td>
+<td align="right">376.0</td>
+<td align="left">▇▃▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">spirit_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">80.99</td>
+<td align="right">88.28</td>
+<td align="right">0</td>
+<td align="right">4.0</td>
+<td align="right">56.0</td>
+<td align="right">128.0</td>
+<td align="right">438.0</td>
+<td align="left">▇▃▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">wine_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">49.45</td>
+<td align="right">79.70</td>
+<td align="right">0</td>
+<td align="right">1.0</td>
+<td align="right">8.0</td>
+<td align="right">59.0</td>
+<td align="right">370.0</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">total_litres_of_pure_alcohol</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.72</td>
+<td align="right">3.77</td>
+<td align="right">0</td>
+<td align="right">1.3</td>
+<td align="right">4.2</td>
+<td align="right">7.2</td>
+<td align="right">14.4</td>
+<td align="left">▇▃▅▃▁</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The output shows that there are not missing data but the zero values might indicate that consumption in the respective countries may be negligible</strong></p>
+<p>Make a plot that shows the top 25 beer consuming countries</p>
+<pre class="r"><code>alcohol_direct %&gt;% 
+  slice_max(order_by = beer_servings, n=25) %&gt;% 
+  ggplot(aes(x = beer_servings, y = fct_reorder(country, beer_servings))) +
+  geom_col(fill=&#39;yellow&#39;) +
+  theme_bw()+
+  labs(
+    title = &quot;Top 25 Beer Consuming Countries&quot;,
+    subtitle = &quot;African countries lead the table and Europena countries follow&quot;,
+    x = &quot;beer servings&quot;,
+    y = NULL
+  )</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Make a plot that shows the top 25 wine consuming countries</p>
+<pre class="r"><code>alcohol_direct %&gt;% 
+  slice_max(order_by = wine_servings, n=25) %&gt;% 
+  ggplot(aes(x = wine_servings, y = fct_reorder(country, wine_servings))) +
+  geom_col(fill=&#39;red&#39;) +
+  theme_bw()+
+  labs(
+    title = &quot;Top 25 Wine Consuming Countries&quot;,
+    subtitle = &quot;France leads the table with other European countries dominating&quot;,
+    x = &quot;wine servings&quot;,
+    y = NULL
+  )</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Finally, make a plot that shows the top 25 spirit consuming countries</p>
+<pre class="r"><code>alcohol_direct %&gt;% 
+  slice_max(order_by = spirit_servings, n=25) %&gt;% 
+  ggplot(aes(x = spirit_servings, y = fct_reorder(country, spirit_servings))) +
+  geom_col(fill=&#39;grey90&#39;) +
+  theme_bw()+
+  labs(
+    title = &quot;Top 25 Spirit Consuming Countries&quot;,
+    subtitle = &quot;Grenada leads the list &quot;,
+    x = &quot;spirit servings&quot;,
+    y = NULL
+  )</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>What can you infer from these plots? Don’t just explain what’s in the graph, but speculate or tell a short story (1-2 paragraphs max).</p>
+<p><strong>The first graph shows us that two African countries are among the top 3 beer consumers. In fact, Namibia, which ranks first on the list is known for its home made beer (ex: Windhoek). Also, Gabon has the cheapest priced alcoholic beverages in Africa and second in the world, which might be an explanation to its high ranking. Generally, Europe still dominates the list, which is expected.</strong><br />
+</p>
+<p><strong>The second graph shows that France leads the list of top wine consumers, with other European countries dominating the ranking as well. Knowing that the numbers are on a per capita basis, we wonder if other highly populated countries (ex: US, China…) would appear in a ranking of absolute consumption.</strong></p>
+<p><strong>The third paragraph shows that Eastern European countries dominate leadership perhaps due to Vodka consumption and the cold climate in general.</strong></p>
+<p><strong>Overall, the results are within expectation and group members’ understandings of alcohol consumption across the globe.</strong></p>
+<hr />
+</div>
+<div id="analysis-of-movies--imdb-dataset" class="section level2">
+<h2>Analysis of movies- IMDB dataset</h2>
+<p>We will look at a subset sample of movies, taken from the <a href="https://www.kaggle.com/carolzhangdc/imdb-5000-movie-dataset">Kaggle IMDB 5000 movie dataset</a></p>
+<pre class="r"><code>movies &lt;-read_csv(here::here(&quot;data&quot;,&quot;movies.csv&quot;)) 
+glimpse(movies)</code></pre>
+<pre><code>## Rows: 2,961
+## Columns: 11
+## $ title               &lt;chr&gt; &quot;Avatar&quot;, &quot;Titanic&quot;, &quot;Jurassic World&quot;, &quot;The Avenge…
+## $ genre               &lt;chr&gt; &quot;Action&quot;, &quot;Drama&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;…
+## $ director            &lt;chr&gt; &quot;James Cameron&quot;, &quot;James Cameron&quot;, &quot;Colin Trevorrow…
+## $ year                &lt;dbl&gt; 2009, 1997, 2015, 2012, 2008, 1999, 1977, 2015, 20…
+## $ duration            &lt;dbl&gt; 178, 194, 124, 173, 152, 136, 125, 141, 164, 93, 1…
+## $ gross               &lt;dbl&gt; 7.61e+08, 6.59e+08, 6.52e+08, 6.23e+08, 5.33e+08, …
+## $ budget              &lt;dbl&gt; 2.37e+08, 2.00e+08, 1.50e+08, 2.20e+08, 1.85e+08, …
+## $ cast_facebook_likes &lt;dbl&gt; 4834, 45223, 8458, 87697, 57802, 37723, 13485, 920…
+## $ votes               &lt;dbl&gt; 886204, 793059, 418214, 995415, 1676169, 534658, 9…
+## $ reviews             &lt;dbl&gt; 3777, 2843, 1934, 2425, 5312, 3917, 1752, 1752, 35…
+## $ rating              &lt;dbl&gt; 7.9, 7.7, 7.0, 8.1, 9.0, 6.5, 8.7, 7.5, 8.5, 7.2, …</code></pre>
+<p>Besides the obvious variables of <code>title</code>, <code>genre</code>, <code>director</code>, <code>year</code>, and <code>duration</code>, the rest of the variables are as follows:</p>
+<ul>
+<li><p><code>gross</code> : The gross earnings in the US box office, not adjusted for inflation</p></li>
+<li><p><code>budget</code>: The movie’s budget</p></li>
+<li><p><code>cast_facebook_likes</code>: the number of facebook likes cast memebrs received</p></li>
+<li><p><code>votes</code>: the number of people who voted for (or rated) the movie in IMDB</p></li>
+<li><p><code>reviews</code>: the number of reviews for that movie</p></li>
+<li><p><code>rating</code>: IMDB average rating</p></li>
+<li><p>Are there any missing values (NAs)? Are all entries distinct or are there duplicate entries?</p></li>
+</ul>
+<pre class="r"><code>#skimr::skim(movies)
+# the number of double entries based on movies
+length(subset(movies$title,duplicated(movies$title)))</code></pre>
+<pre><code>## [1] 54</code></pre>
+<pre class="r"><code>movies_unique&lt;- movies %&gt;% distinct(title, year, .keep_all = TRUE)
+length(subset(movies_unique$title,duplicated(movies_unique$title)))</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>View(movies_unique)</code></pre>
+<ul>
+<li>Produce a table with the count of movies by genre, ranked in descending order</li>
+</ul>
+<pre class="r"><code>library(tidytext)
+library(janeaustenr)
+library(dplyr)
+#https://dplyr.tidyverse.org/reference/count.html
+movies_unique %&gt;% 
+    count(genre,wt = NULL, sort = TRUE, name = NULL) #%&gt;% # group by genre</code></pre>
+<pre><code>## # A tibble: 17 × 2
+##    genre           n
+##    &lt;chr&gt;       &lt;int&gt;
+##  1 Comedy        844
+##  2 Action        719
+##  3 Drama         484
+##  4 Adventure     281
+##  5 Crime         198
+##  6 Biography     135
+##  7 Horror        128
+##  8 Animation      35
+##  9 Fantasy        26
+## 10 Documentary    25
+## 11 Mystery        15
+## 12 Sci-Fi          7
+## 13 Family          3
+## 14 Musical         2
+## 15 Romance         2
+## 16 Western         2
+## 17 Thriller        1</code></pre>
+<ul>
+<li>Produce a table with the average gross earning and budget (<code>gross</code> and <code>budget</code>) by genre. Calculate a variable <code>return_on_budget</code> which shows how many $ did a movie make at the box office for each $ of its budget. Ranked genres by this <code>return_on_budget</code> in descending order</li>
+</ul>
+<pre class="r"><code>tab1&lt;-movies_unique %&gt;% 
+    group_by(genre) %&gt;% # group by genre
+    summarise(gross = mean(gross, na.rm = TRUE), 
+              budget = mean(budget, na.rm = TRUE),
+              return_on_budget=gross/budget)
+
+arrange(tab1, desc(return_on_budget))</code></pre>
+<pre><code>## # A tibble: 17 × 4
+##    genre            gross    budget return_on_budget
+##    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
+##  1 Musical      92084000   3189500          28.9    
+##  2 Family      149160478. 14833333.         10.1    
+##  3 Western      20821884   3465000           6.01   
+##  4 Documentary  17353973.  5887852.          2.95   
+##  5 Horror       37782310. 13804379.          2.74   
+##  6 Fantasy      41902674. 18484615.          2.27   
+##  7 Comedy       42487808. 24458506.          1.74   
+##  8 Mystery      69117136. 41500000           1.67   
+##  9 Animation    98433792. 61701429.          1.60   
+## 10 Biography    45201805. 28543696.          1.58   
+## 11 Adventure    94350236. 64692313.          1.46   
+## 12 Drama        36754959. 25832605.          1.42   
+## 13 Crime        37601525. 26527405.          1.42   
+## 14 Romance      31264848. 25107500           1.25   
+## 15 Action       86270343. 70774558.          1.22   
+## 16 Sci-Fi       29788371. 27607143.          1.08   
+## 17 Thriller         2468    300000           0.00823</code></pre>
+<ul>
+<li>Produce a table that shows the top 15 directors who have created the highest gross revenue in the box office. Don’t just show the total gross amount, but also the mean, median, and standard deviation per director.</li>
+</ul>
+<pre class="r"><code>movies_unique %&gt;% 
+  group_by(director) %&gt;%
+  summarise(  tot=sum(gross,na.rm = TRUE),
+              avg = mean(gross, na.rm = TRUE), 
+              median = median(gross, na.rm = TRUE),
+              std=sd(gross))%&gt;%
+  slice_max(order_by =(tot), n=15)</code></pre>
+<pre><code>## # A tibble: 15 × 5
+##    director                 tot        avg     median        std
+##    &lt;chr&gt;                  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Steven Spielberg  4014061704 174524422. 164435221  101421051.
+##  2 Michael Bay       2195443511 182953626. 168468240. 125789167.
+##  3 James Cameron     1909725910 318287652. 175562880. 309171337.
+##  4 Christopher Nolan 1813227576 226653447  196667606. 187224133.
+##  5 George Lucas      1741418480 348283696  380262555  146193880.
+##  6 Robert Zemeckis   1619309108 124562239. 100853835   91300279.
+##  7 Tim Burton        1557078534 111219895.  69791834   99304293.
+##  8 Sam Raimi         1443167519 180395940. 138480208  174705230.
+##  9 Clint Eastwood    1378321100  72543216.  46700000   75487408.
+## 10 Francis Lawrence  1358501971 271700394. 281666058  135437020.
+## 11 Ron Howard        1335988092 111332341  101587923   81933761.
+## 12 Gore Verbinski    1329600995 189942999. 123207194  154473822.
+## 13 Andrew Adamson    1137446920 284361730  279680930. 120895765.
+## 14 Shawn Levy        1129750988 102704635.  85463309   65484773.
+## 15 Ridley Scott      1128857598  80632686.  47775715   68812285.</code></pre>
+<ul>
+<li>Finally, ratings. Produce a table that describes how ratings are distributed by genre. We don’t want just the mean, but also, min, max, median, SD and some kind of a histogram or density graph that visually shows how ratings are distributed.</li>
+</ul>
+<pre class="r"><code>dat1&lt;-movies_unique %&gt;% 
+  group_by(genre) %&gt;%
+  summarise(  avg=mean(rating,na.rm = TRUE),
+              min = min(rating, na.rm = TRUE), 
+              max = max(rating, na.rm = TRUE),
+              median = median(rating, na.rm = TRUE),
+              std=sd(rating,na.rm = TRUE))
+
+dat1</code></pre>
+<pre><code>## # A tibble: 17 × 6
+##    genre         avg   min   max median    std
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Action       6.23   2.1   9     6.3   1.04 
+##  2 Adventure    6.51   2.3   8.6   6.6   1.11 
+##  3 Animation    6.65   4.5   8     6.9   0.968
+##  4 Biography    7.11   4.5   8.9   7.2   0.760
+##  5 Comedy       6.11   1.9   8.8   6.2   1.02 
+##  6 Crime        6.92   4.8   9.3   6.9   0.853
+##  7 Documentary  6.66   1.6   8.5   7.4   1.77 
+##  8 Drama        6.74   2.1   8.8   6.8   0.915
+##  9 Family       6.5    5.7   7.9   5.9   1.22 
+## 10 Fantasy      6.08   4.3   7.9   6.2   0.953
+## 11 Horror       5.79   3.6   8.5   5.85  0.987
+## 12 Musical      6.75   6.3   7.2   6.75  0.636
+## 13 Mystery      6.84   4.6   8.5   6.7   0.910
+## 14 Romance      6.65   6.2   7.1   6.65  0.636
+## 15 Sci-Fi       6.66   5     8.2   6.4   1.09 
+## 16 Thriller     4.8    4.8   4.8   4.8  NA    
+## 17 Western      5.7    4.1   7.3   5.7   2.26</code></pre>
+<pre class="r"><code>movies_unique %&gt;% 
+ggplot( aes(x=genre, y=rating))+
+  geom_boxplot()+
+  geom_jitter(width=0.15)+
+  theme(axis.text.x = element_text(angle = 90))+
+   theme_bw()+
+  labs(
+    title = &quot;Rating by genre&quot;,
+    subtitle = &quot;Documentary perform well&quot;,
+    x = &quot;genre&quot;,
+    y = NULL)</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Examine the relationship between <code>gross</code> and <code>cast_facebook_likes</code>. Produce a scatterplot and write one sentence discussing whether the number of facebook likes that the cast has received is likely to be a good predictor of how much money a movie will make at the box office. What variable are you going to map to the Y- and X- axes?</li>
+</ul>
+<pre class="r"><code>movies_unique %&gt;% 
+  ggplot(aes(x = gross, y = cast_facebook_likes, gross)) +
+  geom_point(size=1, shape=1) +
+  theme_bw()+
+  labs(
+    title = &quot;Relationship between gross profit and cast_facebook_like&quot;,
+    subtitle = &quot;No relationship&quot;,
+    x = &quot;Gross earnings (US$)&quot;,
+    y = &quot;Facebook likes&quot;
+  )</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/gross_on_fblikes-1.png" width="648" style="display: block; margin: auto;" />
+<strong>There is no relationship between the two variables</strong></p>
+<ul>
+<li>Examine the relationship between <code>gross</code> and <code>budget</code>. Produce a scatterplot and write one sentence discussing whether budget is likely to be a good predictor of how much money a movie will make at the box office.</li>
+</ul>
+<pre class="r"><code>movies_unique %&gt;% 
+  ggplot(aes(x = gross, y = budget, gross)) +
+  geom_jitter(width = 10000000, height = 10000000)+
+  labs(
+    title = &quot;Relationship between budget and cast_facebook_like&quot;,
+    subtitle = &quot;Positive relationship&quot;,
+    x = &quot;Gross earnings (US$)&quot;,
+    y = &quot;Budget&quot;
+  )</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/gross_on_budget-1.png" width="648" style="display: block; margin: auto;" />
+<strong>There is a positive relationship between the two variables</strong></p>
+<ul>
+<li>Examine the relationship between <code>gross</code> and <code>rating</code>. Produce a scatterplot, faceted by <code>genre</code> and discuss whether IMDB ratings are likely to be a good predictor of how much money a movie will make at the box office. Is there anything strange in this dataset?</li>
+</ul>
+<pre class="r"><code>movies_unique %&gt;% 
+  ggplot(aes(x = gross, y = rating, gross)) +
+  geom_point(size=1, shape=1) +
+  theme_bw()+
+  labs(
+    title = &quot;Relationship between gross profit and cast_facebook_like&quot;,
+    subtitle = &quot;No relationship&quot;,
+    x = &quot;Gross earnings (US$)&quot;,
+    y = &quot;Facebook likes&quot;
+  )+facet_wrap(~genre, scales = &quot;free&quot;)</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/gross_on_rating-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+<div id="returns-of-financial-stocks" class="section level2">
+<h2>Returns of financial stocks</h2>
+<pre class="r"><code>nyse &lt;- read_csv(here::here(&quot;data&quot;,&quot;nyse.csv&quot;))</code></pre>
+<p>Based on this dataset, create a table and a bar plot that shows the number of companies per sector, in descending order</p>
+<pre class="r"><code>tab&lt;-nyse%&gt;%
+  count(sector, wt = NULL, sort = TRUE, name = NULL)
+tab</code></pre>
+<pre><code>## # A tibble: 12 × 2
+##    sector                    n
+##    &lt;chr&gt;                 &lt;int&gt;
+##  1 Finance                  97
+##  2 Consumer Services        79
+##  3 Public Utilities         60
+##  4 Capital Goods            45
+##  5 Health Care              45
+##  6 Energy                   42
+##  7 Technology               40
+##  8 Basic Industries         39
+##  9 Consumer Non-Durables    31
+## 10 Miscellaneous            12
+## 11 Transportation           10
+## 12 Consumer Durables         8</code></pre>
+<pre class="r"><code>tab%&gt;%
+  ggplot(aes(x = n, y=fct_reorder(sector,n))) +
+  geom_col(fill=&#39;blue&#39;) +
+  theme_bw()+
+  labs(
+    title = &quot;Numbers of Companies per Sector&quot;,
+    subtitle = &quot;Finance dominates the pack&quot;,
+    x = &quot;count of companies&quot;,
+    y = NULL
+  )</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/companies_per_sector-1.png" width="648" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>djia_url &lt;- &quot;https://en.wikipedia.org/wiki/Dow_Jones_Industrial_Average&quot;
+
+
+#get tables that exist on URL
+tables &lt;- djia_url %&gt;% 
+  read_html() %&gt;% 
+  html_nodes(css=&quot;table&quot;)
+
+
+# parse HTML tables into a dataframe called djia. 
+# Use purr::map() to create a list of all tables in URL
+djia &lt;- map(tables, . %&gt;% 
+               html_table(fill=TRUE)%&gt;% 
+               clean_names())
+
+
+# constituents
+table1 &lt;- djia[[2]] %&gt;% # the second table on the page contains the ticker symbols
+  mutate(date_added = ymd(date_added),
+         
+         # if a stock is listed on NYSE, its symbol is, e.g., NYSE: MMM
+         # We will get prices from yahoo finance which requires just the ticker
+         
+         # if symbol contains &quot;NYSE*&quot;, the * being a wildcard
+         # then we just drop the first 6 characters in that string
+         ticker = ifelse(str_detect(symbol, &quot;NYSE*&quot;),
+                          str_sub(symbol,7,11),
+                          symbol)
+         )
+
+# we need a vector of strings with just the 30 tickers + SPY
+tickers &lt;- table1 %&gt;% 
+  select(ticker) %&gt;% 
+  pull() %&gt;% # pull() gets them as a sting of characters
+  c(&quot;SPY&quot;) # and lets us add SPY, the SP500 ETF</code></pre>
+<pre class="r"><code># Notice the cache=TRUE argument in the chunk options. Because getting data is time consuming, # cache=TRUE means that once it downloads data, the chunk will not run again next time you knit your Rmd
+
+myStocks &lt;- tickers %&gt;% 
+  tq_get(get  = &quot;stock.prices&quot;,
+         from = &quot;2000-01-01&quot;,
+         to   = Sys.Date()) %&gt;% # Sys.Date() returns today&#39;s price
+  group_by(symbol) 
+
+glimpse(myStocks) # examine the structure of the resulting data frame</code></pre>
+<pre><code>## Rows: 161,987
+## Columns: 8
+## Groups: symbol [31]
+## $ symbol   &lt;chr&gt; &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;…
+## $ date     &lt;date&gt; 2000-01-03, 2000-01-04, 2000-01-05, 2000-01-06, 2000-01-07, …
+## $ open     &lt;dbl&gt; 48.0, 46.4, 45.6, 47.2, 50.6, 50.2, 50.4, 51.0, 50.7, 50.4, 4…
+## $ high     &lt;dbl&gt; 48.2, 47.4, 48.1, 51.2, 51.9, 51.8, 51.2, 51.8, 50.9, 50.5, 4…
+## $ low      &lt;dbl&gt; 47.0, 45.3, 45.6, 47.2, 50.0, 50.0, 50.2, 50.4, 50.2, 49.5, 4…
+## $ close    &lt;dbl&gt; 47.2, 45.3, 46.6, 50.4, 51.4, 51.1, 50.2, 50.4, 50.4, 49.7, 4…
+## $ volume   &lt;dbl&gt; 2173400, 2713800, 3699400, 5975800, 4101200, 3863800, 2357600…
+## $ adjusted &lt;dbl&gt; 27.2, 26.1, 26.9, 29.0, 29.6, 29.4, 28.9, 29.0, 29.0, 28.6, 2…</code></pre>
+<pre class="r"><code>#calculate daily returns
+myStocks_returns_daily &lt;- myStocks %&gt;%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;daily&quot;, 
+               type       = &quot;log&quot;,
+               col_rename = &quot;daily_returns&quot;,
+               cols = c(nested.col))  
+
+#calculate monthly  returns
+myStocks_returns_monthly &lt;- myStocks %&gt;%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;monthly&quot;, 
+               type       = &quot;arithmetic&quot;,
+               col_rename = &quot;monthly_returns&quot;,
+               cols = c(nested.col)) 
+
+#calculate yearly returns
+myStocks_returns_annual &lt;- myStocks %&gt;%
+  group_by(symbol) %&gt;%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;yearly&quot;, 
+               type       = &quot;arithmetic&quot;,
+               col_rename = &quot;yearly_returns&quot;,
+               cols = c(nested.col))</code></pre>
+<p>Create a table where you summarise monthly returns for each of the stocks and <code>SPY</code>; min, max, median, mean, SD.</p>
+<pre class="r"><code>summarise_monthly_returns &lt;- myStocks_returns_monthly %&gt;% 
+  #Consolidate data frame by symbol
+  group_by(symbol) %&gt;% 
+
+  #Collapse data by calculating summary statistics  
+  summarize(
+    min = min(monthly_returns, na.rm = TRUE),
+    median = quantile(monthly_returns, 0.5, na.rm = TRUE),
+    max = max(monthly_returns, na.rm = TRUE),
+    mean = mean(monthly_returns, na.rm = TRUE),
+    sd = sd(monthly_returns, na.rm = TRUE))
+summarise_monthly_returns</code></pre>
+<pre><code>## # A tibble: 31 × 6
+##    symbol    min  median   max    mean     sd
+##    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 AAPL   -0.577 0.0347  0.454 0.0268  0.115 
+##  2 AMGN   -0.170 0.00856 0.328 0.00805 0.0732
+##  3 AXP    -0.279 0.0109  0.875 0.0101  0.0921
+##  4 BA     -0.458 0.0165  0.459 0.0126  0.0925
+##  5 CAT    -0.353 0.0141  0.350 0.0143  0.0898
+##  6 CRM    -0.360 0.0205  0.403 0.0262  0.110 
+##  7 CSCO   -0.367 0.0125  0.389 0.00602 0.0962
+##  8 CVX    -0.224 0.0108  0.273 0.00883 0.0653
+##  9 DIS    -0.268 0.0100  0.234 0.0104  0.0737
+## 10 DOW    -0.276 0.0311  0.255 0.0155  0.109 
+## # … with 21 more rows</code></pre>
+<p>Plot a density plot, using <code>geom_density()</code>, for each of the stocks</p>
+<pre class="r"><code>ggplot(myStocks_returns_monthly, aes(x = monthly_returns)) +
+  geom_density(color = &quot;black&quot;, fill = &quot;transparent&quot;)+
+    facet_wrap(~symbol, nrow = 4)</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/density_monthly_returns-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>What can you infer from this plot? Which stock is the riskiest? The least risky?</p>
+<p><strong>The riskiest stock has the most spread out return performance - AAPL.</strong></p>
+<p><strong>The least risky stock has the least spread out return performance - SPY.</strong></p>
+<p>Finally, make a plot that shows the expected monthly return (mean) of a stock on the Y axis and the risk (standard deviation) in the X-axis. Please use <code>ggrepel::geom_text_repel()</code> to label each stock</p>
+<pre class="r"><code>summarize_monthly &lt;- myStocks_returns_monthly %&gt;% 
+  group_by(symbol) %&gt;% 
+  summarise(aver_monthly_returns = mean(monthly_returns), 
+            sd_monthly_returns = sd(monthly_returns))
+
+#Compute graph
+p &lt;- ggplot(summarize_monthly, aes(x=sd_monthly_returns, y=aver_monthly_returns, label = symbol)) +
+  geom_point(color = &quot;red&quot;)
+
+#Add aesthetics elements
+library(ggrepel)
+p1 &lt;- p + geom_text_repel() + labs(title = &quot;Mean-risk distribution&quot;, x=&quot;Standard Deviation&quot;, y=&quot;Mean&quot;)
+
+p1</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/risk_return_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>What can you infer from this plot? Are there any stocks which, while being riskier, do not have a higher expected return?</p>
+<p><strong>CSCO + INTC. They have high risk, being at the higher end of SD measurement, whilst displaying suppressed returns.</strong></p>
+</div>
+<div id="is-inflation-transitory" class="section level2">
+<h2>Is inflation transitory?</h2>
+<blockquote>
+<p>The surge in inflation seen across major economies is probably short lived because it’s confined to just a few sectors of the economy, according to the Bank for International Settlements.</p>
+</blockquote>
+<blockquote>
+<p>New research by the BIS’s Claudio Borio, Piti Disyatat, Egon Zakrajsek and Dora Xia adds to one of the hottest debates in economics – how long the current surge in consumer prices will last. Both Federal Reserve Chair Jerome Powell and his euro-area counterpart Christine Lagarde have said the pickup is probably transitory, despite a snarled global supply chain and a spike in energy prices.</p>
+</blockquote>
+<pre class="r"><code>cpi  &lt;-   tq_get(&quot;CPIAUCSL&quot;, get = &quot;economic.data&quot;,
+                       from = &quot;1980-01-01&quot;) %&gt;% 
+  rename(cpi = symbol,  # FRED data is given as &#39;symbol&#39; and &#39;price&#39;
+         rate = price) %&gt;% # we rename them to what they really are, e.g., cpi and rate
+  
+  # calculate yearly change in CPI by dividing current month by same month a year (or 12 months) earlier, minus 1
+  mutate(cpi_yoy_change = rate/lag(rate, 12) - 1)
+
+ten_year_monthly  &lt;-   tq_get(&quot;GS10&quot;, get = &quot;economic.data&quot;,
+                       from = &quot;1980-01-01&quot;) %&gt;% 
+  rename(ten_year = symbol,
+         yield = price) %&gt;% 
+  mutate(yield = yield / 100) # original data is not given as, e.g., 0.05, but rather 5, for five percent
+
+# we have the two dataframes-- we now need to join them, and we will use left_join()
+# base R has a function merge() that does the same, but it&#39;s slow, so please don&#39;t use it
+
+
+mydata &lt;- 
+  cpi %&gt;% 
+  left_join(ten_year_monthly, by=&quot;date&quot;) %&gt;% 
+  mutate(
+    year = year(date), # using lubridate::year() to generate a new column with just the year
+    month = month(date, label = TRUE),
+    decade=case_when(
+      year %in% 1980:1989 ~ &quot;1980s&quot;,
+      year %in% 1990:1999 ~ &quot;1990s&quot;,
+      year %in% 2000:2009 ~ &quot;2000s&quot;,
+      year %in% 2010:2019 ~ &quot;2010s&quot;,
+      TRUE ~ &quot;2020s&quot;
+      )
+  )</code></pre>
+<pre class="r"><code># transfer month number into abbreviation
+tran_month &lt;- function(x){
+  months &lt;- list(&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)
+  sapply(x, function(x) months[[x]])
+}
+library(ggrepel)
+#apply tran_month in data
+mydata %&gt;% 
+  mutate(month = month(date)) %&gt;%  #add a column of month in number
+  mutate(month_3 = tran_month(month)) %&gt;%  #change it into 3 letters
+  
+  #make plot
+  ggplot(aes(x = cpi_yoy_change, y = yield, colour = decade)) + 
+  theme_bw() + #change the background of white
+  geom_point(size = 1) + 
+  geom_smooth(method = &quot;lm&quot;, formula = y ~ x, se = F, size = 0.3) + 
+  
+  #set the axis into percent value 
+  scale_x_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent) + 
+  
+  #add information for graph
+  labs(title = &quot;How are CPI and 10-year yield related?&quot;, x = &quot;CPI Yearly Change&quot;, y = &quot;10-Year Treasury ComstantMaturity Rate&quot;, caption = &quot;Data Source: FRED&quot;) + 
+  theme(legend.position = &quot;none&quot;, strip.text = element_text(size = 6), plot.title = element_text(size = 9), 
+        axis.text = element_text(size = 6), axis.title = element_text(size = 8)) + #remove legend &amp; facet title smaller
+  geom_text_repel(aes(cpi_yoy_change, yield, label = paste(month_3, year)), size = 1.5) + #label the months and years beside points and adjust the size of labels
+  facet_wrap(~decade, nrow = 5, scales = &quot;free&quot;)  #set them into 5 parallel graphs</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/unnamed-chunk-5-1.png" width="1440" style="display: block; margin: auto;" /></p>
+</div>
+<div id="challenge-1-replicating-a-chart" class="section level2">
+<h2>Challenge 1: Replicating a chart</h2>
+<pre class="r"><code>library(ggpmisc)
+  glimpse(vaccinations)</code></pre>
+<pre><code>## Rows: 667,138
+## Columns: 32
+## $ date                                     &lt;chr&gt; &quot;10/19/2021&quot;, &quot;10/19/2021&quot;, &quot;…
+## $ fips                                     &lt;chr&gt; &quot;19059&quot;, &quot;47049&quot;, &quot;35013&quot;, &quot;4…
+## $ mmwr_week                                &lt;dbl&gt; 42, 42, 42, 42, 42, 42, 42, 4…
+## $ recip_county                             &lt;chr&gt; &quot;Dickinson County&quot;, &quot;Fentress…
+## $ recip_state                              &lt;chr&gt; &quot;IA&quot;, &quot;TN&quot;, &quot;NM&quot;, &quot;OK&quot;, &quot;OH&quot;,…
+## $ series_complete_pop_pct                  &lt;dbl&gt; 53.0, 29.6, 54.3, 39.4, 42.6,…
+## $ series_complete_yes                      &lt;dbl&gt; 9147, 5482, 118394, 17207, 27…
+## $ series_complete_12plus                   &lt;dbl&gt; 9147, 5482, 118386, 17206, 27…
+## $ series_complete_12plus_pop_pct           &lt;dbl&gt; 60.5, 34.1, 64.5, 46.2, 49.6,…
+## $ series_complete_18plus                   &lt;dbl&gt; 8797, 5383, 108250, 16421, 26…
+## $ series_complete_18plus_pop_pct           &lt;dbl&gt; 62.9, 36.5, 65.5, 48.4, 51.9,…
+## $ series_complete_65plus                   &lt;dbl&gt; 3909, 2530, 27473, 5792, 9458…
+## $ series_complete_65plus_pop_pct           &lt;dbl&gt; 84.8, 61.0, 77.6, 65.2, 79.7,…
+## $ completeness_pct                         &lt;dbl&gt; 97.5, 97.9, 84.4, 93.8, 98.7,…
+## $ administered_dose1_recip                 &lt;dbl&gt; 9818, 6195, 126778, 20311, 29…
+## $ administered_dose1_pop_pct               &lt;dbl&gt; 56.9, 33.4, 58.1, 46.5, 45.5,…
+## $ administered_dose1_recip_12plus          &lt;dbl&gt; 9818, 6193, NA, 20309, 29614,…
+## $ administered_dose1_recip_12plus_pop_pct  &lt;dbl&gt; 64.9, 38.5, 0.0, 54.5, 53.0, …
+## $ administered_dose1_recip_18plus          &lt;dbl&gt; 9425, 6066, NA, 19331, 28392,…
+## $ administered_dose1_recip_18plus_pop_pct  &lt;dbl&gt; 67.4, 41.2, 0.0, 57.0, 55.2, …
+## $ administered_dose1_recip_65plus          &lt;dbl&gt; 4146, 2664, NA, 6438, 9782, 0…
+## $ administered_dose1_recip_65plus_pop_pct  &lt;dbl&gt; 89.9, 64.2, 0.0, 72.5, 82.5, …
+## $ svi_ctgy                                 &lt;chr&gt; &quot;A&quot;, &quot;C&quot;, &quot;D&quot;, &quot;D&quot;, &quot;C&quot;, &quot;C&quot;,…
+## $ series_complete_pop_pct_svi              &lt;dbl&gt; 4, 9, 16, 14, 11, NA, 9, 16, …
+## $ series_complete_12plus_pop_pct_svi       &lt;dbl&gt; 4, 10, 16, 15, 11, NA, 9, 16,…
+## $ series_complete_18plus_pop_pct_svi       &lt;dbl&gt; 4, 10, 16, 15, 12, NA, 9, 16,…
+## $ series_complete_65plus_pop_pct_svi       &lt;dbl&gt; 4, 11, 16, 15, 12, NA, 10, 16…
+## $ metro_status                             &lt;chr&gt; &quot;Non-metro&quot;, &quot;Non-metro&quot;, &quot;Me…
+## $ series_complete_pop_pct_ur_equity        &lt;dbl&gt; 8, 5, 4, 6, 7, NA, 1, 4, 3, 7…
+## $ series_complete_12plus_pop_pct_ur_equity &lt;dbl&gt; 8, 6, 4, 7, 7, NA, 1, 4, 4, 8…
+## $ series_complete_18plus_pop_pct_ur_equity &lt;dbl&gt; 8, 6, 4, 7, 8, NA, 1, 4, 4, 8…
+## $ series_complete_65plus_pop_pct_ur_equity &lt;dbl&gt; 8, 7, 4, 7, 8, NA, 2, 4, 4, 8…</code></pre>
+<pre class="r"><code> glimpse(election2020_results)</code></pre>
+<pre><code>## Rows: 22,093
+## Columns: 12
+## $ year           &lt;dbl&gt; 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2…
+## $ state          &lt;chr&gt; &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, &quot;ALABAMA&quot;, …
+## $ state_po       &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;…
+## $ county_name    &lt;chr&gt; &quot;AUTAUGA&quot;, &quot;AUTAUGA&quot;, &quot;AUTAUGA&quot;, &quot;BALDWIN&quot;, &quot;BALDWIN&quot;, …
+## $ fips           &lt;chr&gt; &quot;01001&quot;, &quot;01001&quot;, &quot;01001&quot;, &quot;01003&quot;, &quot;01003&quot;, &quot;01003&quot;, &quot;…
+## $ office         &lt;chr&gt; &quot;PRESIDENT&quot;, &quot;PRESIDENT&quot;, &quot;PRESIDENT&quot;, &quot;PRESIDENT&quot;, &quot;PR…
+## $ candidate      &lt;chr&gt; &quot;JOSEPH R BIDEN JR&quot;, &quot;OTHER&quot;, &quot;DONALD J TRUMP&quot;, &quot;JOSEPH…
+## $ party          &lt;chr&gt; &quot;DEMOCRAT&quot;, &quot;OTHER&quot;, &quot;REPUBLICAN&quot;, &quot;DEMOCRAT&quot;, &quot;OTHER&quot;,…
+## $ candidatevotes &lt;dbl&gt; 7503, 429, 19838, 24578, 1557, 83544, 4816, 80, 5622, 1…
+## $ totalvotes     &lt;dbl&gt; 27770, 27770, 27770, 109679, 109679, 109679, 10518, 105…
+## $ version        &lt;dbl&gt; 20210622, 20210622, 20210622, 20210622, 20210622, 20210…
+## $ mode           &lt;chr&gt; &quot;TOTAL&quot;, &quot;TOTAL&quot;, &quot;TOTAL&quot;, &quot;TOTAL&quot;, &quot;TOTAL&quot;, &quot;TOTAL&quot;, &quot;…</code></pre>
+<pre class="r"><code> glimpse(population)</code></pre>
+<pre><code>## Rows: 3,274
+## Columns: 2
+## $ fips              &lt;chr&gt; &quot;00000&quot;, &quot;01000&quot;, &quot;01001&quot;, &quot;01003&quot;, &quot;01005&quot;, &quot;01007&quot;…
+## $ pop_estimate_2019 &lt;dbl&gt; 3.31e+08, 5.02e+06, 5.88e+04, 2.32e+05, 2.52e+04, 2.…</code></pre>
+<pre class="r"><code># Computing percentage of Trump vote into &#39;election2020_Trump_votes&#39; by county
+election2020_Trump_votes&lt;-election2020_results %&gt;%
+   mutate(pct_vote = candidatevotes / totalvotes) %&gt;%
+   filter(candidate == &quot;DONALD J TRUMP&quot;, mode==&#39;TOTAL&#39;) %&gt;%
+   select(fips,pct_vote)
+
+ 
+head(election2020_Trump_votes) </code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   fips  pct_vote
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 01001    0.714
+## 2 01003    0.762
+## 3 01005    0.535
+## 4 01007    0.784
+## 5 01009    0.896
+## 6 01011    0.248</code></pre>
+<pre class="r"><code>head(vaccinations) </code></pre>
+<pre><code>## # A tibble: 6 × 32
+##   date       fips  mmwr_week recip_county     recip_state series_complete_pop_p…
+##   &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                        &lt;dbl&gt;
+## 1 10/19/2021 19059        42 Dickinson County IA                            53  
+## 2 10/19/2021 47049        42 Fentress County  TN                            29.6
+## 3 10/19/2021 35013        42 Dona Ana County  NM                            54.3
+## 4 10/19/2021 40121        42 Pittsburg County OK                            39.4
+## 5 10/19/2021 39101        42 Marion County    OH                            42.6
+## 6 10/19/2021 48483        42 Wheeler County   TX                             0  
+## # … with 26 more variables: series_complete_yes &lt;dbl&gt;,
+## #   series_complete_12plus &lt;dbl&gt;, series_complete_12plus_pop_pct &lt;dbl&gt;,
+## #   series_complete_18plus &lt;dbl&gt;, series_complete_18plus_pop_pct &lt;dbl&gt;,
+## #   series_complete_65plus &lt;dbl&gt;, series_complete_65plus_pop_pct &lt;dbl&gt;,
+## #   completeness_pct &lt;dbl&gt;, administered_dose1_recip &lt;dbl&gt;,
+## #   administered_dose1_pop_pct &lt;dbl&gt;, administered_dose1_recip_12plus &lt;dbl&gt;,
+## #   administered_dose1_recip_12plus_pop_pct &lt;dbl&gt;,
+## #   administered_dose1_recip_18plus &lt;dbl&gt;,
+## #   administered_dose1_recip_18plus_pop_pct &lt;dbl&gt;,
+## #   administered_dose1_recip_65plus &lt;dbl&gt;,
+## #   administered_dose1_recip_65plus_pop_pct &lt;dbl&gt;, svi_ctgy &lt;chr&gt;,
+## #   series_complete_pop_pct_svi &lt;dbl&gt;,
+## #   series_complete_12plus_pop_pct_svi &lt;dbl&gt;,
+## #   series_complete_18plus_pop_pct_svi &lt;dbl&gt;,
+## #   series_complete_65plus_pop_pct_svi &lt;dbl&gt;, metro_status &lt;chr&gt;,
+## #   series_complete_pop_pct_ur_equity &lt;dbl&gt;,
+## #   series_complete_12plus_pop_pct_ur_equity &lt;dbl&gt;,
+## #   series_complete_18plus_pop_pct_ur_equity &lt;dbl&gt;,
+## #   series_complete_65plus_pop_pct_ur_equity &lt;dbl&gt;</code></pre>
+<pre class="r"><code>mdate&lt;- &quot;07/04/2021&quot;
+# Filtering total number of people who got two shots based on latest update
+vaccinations_lastupdate&lt;-vaccinations %&gt;%
+filter(date == mdate) %&gt;%
+mutate(vaccination_rate=administered_dose1_pop_pct)%&gt;%
+  mutate(vaccination_rate=case_when(
+        recip_state %in% c(&#39;CA&#39;, &#39;GA&#39;, &#39;IA&#39;, &#39;MI&#39;, &#39;TX&#39;) ~ administered_dose1_pop_pct/100,
+       TRUE ~ series_complete_pop_pct/100)) %&gt;%
+ filter(vaccination_rate&gt;0.00,date == mdate)
+
+head(vaccinations_lastupdate)</code></pre>
+<pre><code>## # A tibble: 6 × 33
+##   date       fips  mmwr_week recip_county    recip_state series_complete_pop_pct
+##   &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;                         &lt;dbl&gt;
+## 1 07/04/2021 13271        27 Telfair County  GA                             12  
+## 2 07/04/2021 47041        27 DeKalb County   TN                             28.1
+## 3 07/04/2021 39095        27 Lucas County    OH                             36  
+## 4 07/04/2021 21151        27 Madison County  KY                             35.7
+## 5 07/04/2021 26007        27 Alpena County   MI                             43.2
+## 6 07/04/2021 31063        27 Frontier County NE                             19.1
+## # … with 27 more variables: series_complete_yes &lt;dbl&gt;,
+## #   series_complete_12plus &lt;dbl&gt;, series_complete_12plus_pop_pct &lt;dbl&gt;,
+## #   series_complete_18plus &lt;dbl&gt;, series_complete_18plus_pop_pct &lt;dbl&gt;,
+## #   series_complete_65plus &lt;dbl&gt;, series_complete_65plus_pop_pct &lt;dbl&gt;,
+## #   completeness_pct &lt;dbl&gt;, administered_dose1_recip &lt;dbl&gt;,
+## #   administered_dose1_pop_pct &lt;dbl&gt;, administered_dose1_recip_12plus &lt;dbl&gt;,
+## #   administered_dose1_recip_12plus_pop_pct &lt;dbl&gt;,
+## #   administered_dose1_recip_18plus &lt;dbl&gt;,
+## #   administered_dose1_recip_18plus_pop_pct &lt;dbl&gt;,
+## #   administered_dose1_recip_65plus &lt;dbl&gt;,
+## #   administered_dose1_recip_65plus_pop_pct &lt;dbl&gt;, svi_ctgy &lt;chr&gt;,
+## #   series_complete_pop_pct_svi &lt;dbl&gt;,
+## #   series_complete_12plus_pop_pct_svi &lt;dbl&gt;,
+## #   series_complete_18plus_pop_pct_svi &lt;dbl&gt;,
+## #   series_complete_65plus_pop_pct_svi &lt;dbl&gt;, metro_status &lt;chr&gt;,
+## #   series_complete_pop_pct_ur_equity &lt;dbl&gt;,
+## #   series_complete_12plus_pop_pct_ur_equity &lt;dbl&gt;,
+## #   series_complete_18plus_pop_pct_ur_equity &lt;dbl&gt;,
+## #   series_complete_65plus_pop_pct_ur_equity &lt;dbl&gt;, vaccination_rate &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#View(vaccinations_lastupdate)
+
+head(vaccinations_lastupdate[c(&#39;fips&#39;, &#39;vaccination_rate&#39;)])</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   fips  vaccination_rate
+##   &lt;chr&gt;            &lt;dbl&gt;
+## 1 13271            0.129
+## 2 47041            0.281
+## 3 39095            0.36 
+## 4 21151            0.357
+## 5 26007            0.462
+## 6 31063            0.191</code></pre>
+<pre class="r"><code>joined_data0 &lt;- left_join(vaccinations_lastupdate[c(&#39;fips&#39;, &#39;vaccination_rate&#39;)],population)
+joined_data &lt;- left_join(joined_data0,election2020_Trump_votes)
+
+#joined_data&lt;-
+ # joined_data %&gt;% select(-last_date)
+
+
+library(hrbrthemes)
+library(viridis)
+head(joined_data)</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   fips  vaccination_rate pop_estimate_2019 pct_vote
+##   &lt;chr&gt;            &lt;dbl&gt;             &lt;dbl&gt;    &lt;dbl&gt;
+## 1 13271            0.129             12477   NA    
+## 2 47041            0.281             20080    0.784
+## 3 39095            0.36             431279    0.408
+## 4 21151            0.357             92701   NA    
+## 5 26007            0.462             28907    0.630
+## 6 31063            0.191              2519    0.853</code></pre>
+<pre class="r"><code>joined_data %&gt;%
+ggplot(aes(x=pct_vote, y=vaccination_rate, size=pop_estimate_2019)) +
+    geom_point(alpha=0.5, shape=21) +
+    theme(legend.position=&quot;bottom&quot;) +
+  scale_size(range = c(.1, 24), name=&quot;Population (M)&quot;) +
+    scale_fill_viridis(discrete=TRUE, guide=FALSE, option=&quot;A&quot;) +
+    ylab(&quot;% of total population vaccinated&quot;) +
+    xlab(&quot;2020 Trump Vote %&quot;) +
+    theme(legend.position = &quot;none&quot;, axis.text = element_text(size = 7))+
+    geom_smooth(method = &quot;lm&quot;, linetype = 3, se=FALSE)+ 
+  #set the axis into percent value and change breaks
+     scale_y_continuous(expand = c(0,0), limits = c(0, 1), breaks = seq(0, 1, by = 0.05) ,labels = scales::percent) +
+  scale_x_continuous(expand = c(0,0), limits = c(0, 1), breaks = seq(0, 1, by = 0.05) ,labels = scales::percent) +
+  
+    # add regression formula
+  stat_poly_eq(
+    aes(label = paste(..eq.label.., ..adj.rr.label.., sep = &#39;~~~~&#39;)),
+    formula = y ~ x,  parse = TRUE,
+      size = 4, 
+      label.x = 0.1,  #location, between 0-1
+      label.y = 0.1,
+      hjust = 0, #left
+      color = &quot;red&quot;) +
+  
+   annotate(&quot;rect&quot;, xmin=0, xmax=0.45, ymin=0, ymax=Inf, alpha=0.2, fill=&quot;blue&quot;) +
+   annotate(&quot;rect&quot;, xmin=0.45, xmax=0.55, ymin=0, ymax=Inf, alpha=0.2, fill=&quot;purple&quot;) +
+   annotate(&quot;rect&quot;, xmin=0.55, xmax=1, ymin=0, ymax=Inf, alpha=0.2, fill=&quot;red&quot;) +
+   geom_hline(yintercept=0.85, linetype=&quot;11&quot;, col = &quot;black&quot;, size = 1)+
+   annotate(&quot;text&quot;, x = 0.16, y = 0.87, label = &quot;Herd Immunity threshold (?)&quot;)</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="challenge-2-opinion-polls-for-the-2021-german-elections" class="section level2">
+<h2>Challenge 2: Opinion polls for the 2021 German elections</h2>
+<p>The Guardian newspaper has an <a href="https://www.theguardian.com/world/2021/aug/20/german-election-poll-tracker-who-will-be-the-next-chancellor">election poll tracker for the upcoming German election</a>.
+The list of the opinion polls since Jan 2021 can be found at <a href="https://en.wikipedia.org/wiki/Opinion_polling_for_the_2021_German_federal_election">Wikipedia</a> and your task is to reproduce the graph similar to the one produced by the Guardian.</p>
+<p>The following code will scrape the wikipedia page and import the table in a dataframe.</p>
+<pre class="r"><code>url &lt;- &quot;https://en.wikipedia.org/wiki/Opinion_polling_for_the_2021_German_federal_election&quot;
+
+# similar graphs and analyses can be found at 
+# https://www.theguardian.com/world/2021/jun/21/german-election-poll-tracker-who-will-be-the-next-chancellor
+# https://www.economist.com/graphic-detail/who-will-succeed-angela-merkel
+
+
+# get tables that exist on wikipedia page 
+tables &lt;- url %&gt;% 
+  read_html() %&gt;% 
+  html_nodes(css=&quot;table&quot;)
+
+
+# parse HTML tables into a dataframe called polls 
+# Use purr::map() to create a list of all tables in URL
+polls &lt;- map(tables, . %&gt;% 
+             html_table(fill=TRUE)%&gt;% 
+             janitor::clean_names())
+
+
+# list of opinion polls
+german_election_polls &lt;- polls[[1]] %&gt;% # the first table on the page contains the list of all opinions polls
+  slice(2:(n()-1)) %&gt;%  # drop the first row, as it contains again the variable names and last row that contains 2017 results
+  mutate(
+         # polls are shown to run from-to, e.g. 9-13 Aug 2021. We keep the last date, 13 Aug here, as the poll date
+         # and we extract it by picking the last 11 characters from that field
+         end_date = str_sub(fieldwork_date, -11),
+         
+         # end_date is still a string, so we convert it into a date object using lubridate::dmy()
+         end_date = dmy(end_date),
+         
+         # we also get the month and week number from the date, if we want to do analysis by month- week, etc.
+         month = month(end_date),
+         week = isoweek(end_date)
+         )</code></pre>
+<pre class="r"><code>#We set up legend manually, and choose similar colors to the original graph in the Guardian article
+cols &lt;- c(&quot;union&quot; = &quot;black&quot;, &quot;spd&quot; = &quot;firebrick&quot;, &quot;af_d&quot; = &quot;dodgerblue4&quot;, &quot;fdp&quot; = &quot;goldenrod1&quot;, &quot;linke&quot; = &quot;darkviolet&quot;, &quot;grune&quot; = &quot;darkolivegreen&quot;)
+#we use the geom_point and geom_smooth functions to create scatterplots and mark patterns
+ggplot(german_election_polls, aes(x=end_date)) +
+  geom_point(aes(y = union), color = &quot;black&quot;, alpha=0.5,show.legend=TRUE) +   #black for union party
+  geom_smooth(aes(y=union, se=FALSE, color=&quot;union&quot;))+
+  geom_point(aes(y = spd), color = &quot;firebrick&quot;, alpha=0.5) +   #red for SPD party
+  geom_smooth(aes(y=spd, se=FALSE, color=&quot;spd&quot;))+
+  geom_point(aes(y = af_d), color = &quot;dodgerblue4&quot;,, alpha=0.5) +  #blue for AfD party
+  geom_smooth(aes(y=af_d, se=FALSE, color=&quot;af_d&quot;))+
+  geom_point(aes(y = fdp), color = &quot;goldenrod1&quot;,, alpha=0.5) +  #golden yellow for FDP party
+  geom_smooth(aes(y=fdp, se=FALSE, color=&quot;fdp&quot;))+
+  geom_point(aes(y = linke), color = &quot;darkviolet&quot;,, alpha=0.5) +  #purple for Linke party
+  geom_smooth(aes(y=linke, se=FALSE, color=&quot;linke&quot;))+
+  geom_point(aes(y = grune), color = &quot;darkolivegreen&quot;,, alpha=0.5) +  #green for Grüne party
+  geom_smooth(aes(y=grune, se=FALSE, colour=&quot;grune&quot;))+        theme_light()+scale_colour_manual(name=&quot;Legend&quot;,values=cols) +
+  labs(title = &quot;German election poll tracker: who will be the next chancellor?&quot;, x = &quot;Date&quot;, y = &quot;Percentage&quot;)+
+  NULL</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/unnamed-chunk-8-1.png" width="648" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Let&#39;s now plot a graph using the 14 days rolling average
+library(zoo)
+#First we calculate the daily average for each party, given that we have different voting firms
+mean_firm100&lt;- german_election_polls %&gt;% 
+  group_by(end_date) %&gt;% 
+  summarise(mean_firm_union=mean(union),
+            mean_firm_SPD=mean(spd),
+            mean_firm_AFD=mean(af_d),
+            mean_firm_FDP=mean(fdp),
+            mean_firm_linke=mean(linke),
+            mean_firm_grune=mean(grune),
+            ) 
+view(mean_firm100)
+#Now let&#39;s assign a number to every unique date in the dataset
+mean_firm100$daterank &lt;- rank(mean_firm100$end_date)
+view(mean_firm100)
+
+require(zoo)
+mean_firm200 &lt;- mean_firm100 %&gt;% 
+  mutate(data_union = rollapply(mean_firm_union, width = 14, mean, by.column = TRUE, align = &quot;right&quot;, na.rm = TRUE, fill =NA)) %&gt;% 
+  mutate(data_SPD = rollapply(mean_firm_SPD, width = 14, mean, by.column = TRUE, align = &quot;right&quot;, na.rm = TRUE, fill =NA)) %&gt;% 
+  mutate(data_AFD = rollapply(mean_firm_AFD, width = 14, mean, by.column = TRUE, align = &quot;right&quot;, na.rm = TRUE, fill =NA)) %&gt;% 
+  mutate(data_FDP = rollapply(mean_firm_FDP, width = 14, mean, by.column = TRUE, align = &quot;right&quot;, na.rm = TRUE, fill =NA)) %&gt;% 
+  mutate(data_linke = rollapply(mean_firm_linke, width = 14, mean, by.column = TRUE, align = &quot;right&quot;, na.rm = TRUE, fill =NA)) %&gt;% 
+  mutate(data_grune = rollapply(mean_firm_grune, width = 14, mean, by.column = TRUE, align = &quot;right&quot;, na.rm = TRUE, fill =NA))
+view(mean_firm200)
+
+#We set up legend manually, and choose similar colors to the original graph in the Guardian article
+colss &lt;- c(&quot;union&quot; = &quot;black&quot;, &quot;spd&quot; = &quot;firebrick&quot;, &quot;af_d&quot; = &quot;dodgerblue4&quot;, &quot;fdp&quot; = &quot;goldenrod1&quot;, &quot;linke&quot; = &quot;darkviolet&quot;, &quot;grune&quot; = &quot;darkolivegreen&quot;)
+#we use the geom_point and geom_smooth functions to create scatterplots and mark patterns
+#in this case, we&#39;re going to plot the graph using two different datasets. To plot the points, we use the initial dataset, as it includes all observations by all voting firms. To plot the line, we use the mean_firm200 dataset as we need the 14 days rolling average 
+ggplot() +
+  geom_point(data=german_election_polls, aes(x=end_date, y= union), color = &quot;black&quot;, alpha=0.5,show.legend=TRUE) +   #black for union party
+  geom_smooth(data=mean_firm200, aes(x=end_date, y=data_union, se=FALSE, color=&quot;union&quot;))+
+  geom_point(data=german_election_polls, aes(x=end_date, y = spd), color = &quot;firebrick&quot;, alpha=0.5) +   #red for SPD party
+  geom_smooth(data=mean_firm200, aes(x=end_date, y=data_SPD, se=FALSE, color=&quot;spd&quot;))+
+  geom_point(data=german_election_polls, aes(x=end_date, y = af_d), color = &quot;dodgerblue4&quot;,, alpha=0.5) +  #blue for AfD party
+  geom_smooth(data=mean_firm200, aes(x=end_date, y=data_AFD, se=FALSE, color=&quot;af_d&quot;))+
+  geom_point(data=german_election_polls, aes(x=end_date, y = fdp), color = &quot;goldenrod1&quot;,, alpha=0.5) +  #golden yellow for FDP party
+  geom_smooth(data=mean_firm200, aes(x=end_date, y=data_FDP, se=FALSE, color=&quot;fdp&quot;))+
+  geom_point(data=german_election_polls, aes(x=end_date, y = linke), color = &quot;darkviolet&quot;,, alpha=0.5) +  #purple for Linke party
+  geom_smooth(data=mean_firm200, aes(x=end_date, y=data_linke, se=FALSE, color=&quot;linke&quot;))+
+  geom_point(data=german_election_polls, aes(x=end_date, y = grune), color = &quot;darkolivegreen&quot;,, alpha=0.5) +  #green for Grüne party
+  geom_smooth(data=mean_firm200, aes(x=end_date, y=data_grune, se=FALSE, colour=&quot;grune&quot;))+        theme_light()+scale_colour_manual(name=&quot;Legend&quot;,values=cols) +
+  labs(title = &quot;German election poll tracker: who will be the next chancellor?&quot;, x = &quot;Date&quot;, y = &quot;Percentage&quot;)+
+  NULL</code></pre>
+<p><img src="/blogs/hw1_files/figure-html/unnamed-chunk-9-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+</div>
