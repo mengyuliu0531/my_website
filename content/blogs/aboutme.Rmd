@@ -31,6 +31,8 @@ knitr::opts_chunk$set(
 My name is Mengyu LIU and I am from China (Mengyu means wings of dreams in Chinese), and you can also contact me with my English name Violet or Japanese name Yumeha (means wings of dreams in Japanese). I was born in midsummer and I am 22 this year.
 I studied business administration and language as an undergraduate in Tsinghua University in Beijing, China. ESG information disclosure is a passion of mine at that time, so for my dissertation I researched the effect of ESG disclosure on influences of companies’ green innovation accomplishments, and the impact on the market expectations. I’m now studying a Masters at London Business School because I want to broaden my understanding of business fundamentals, whilst deepening my specific interest in finance and investment. 
 
+[My resume professional format](https://raw.githubusercontent.com/mengyuliu0531/photos/main/cv.jpg)
+
 # What I have done in the past
 ## Before university
 I studied at Wuhan Foreign Languages School before college. Wuhan is a beautiful and kind city in the middle of China, near the Yangtze River. During high school, I have devoted myself to students’ affairs at student association and several events at *MUN*. (MUN is the abbreviation of Model United Nations, where students discuss social or political affairs, representing different countries, just like real delegates in the UN.) I have taken part into conferences like Human Rights Council and International Criminal Police Organization. It was a great experience	where I got to communicate with those peers from high schools around China.

@@ -81,7 +81,7 @@ params:
     enable: yes
     showcase:
       - image: aboutme.jpg
-        subtitle: Want to know more about me?
+        subtitle: Want to know more about me? 
         title: About me
         url: blogs/aboutme #done
       - image: japanese1.jpg
